@@ -7,3 +7,5 @@ Mass conservation and momentum equations with all terms of transient, diffusion,
 It has more than 30 functions which are in 5 seperated files.
 
 main files: Initialization - grid generations - side functions - main functions - main program.
+
+a bit more detail can be found in wiki.
