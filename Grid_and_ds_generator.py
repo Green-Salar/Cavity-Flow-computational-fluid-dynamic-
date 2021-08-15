@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from dndx_dndy_vol_forip import *
-#from Upwinder import *
+
+
+# from Upwinder import *
 
 
 # Given these endpoints
@@ -48,7 +50,7 @@ for i in range(0, Ny):
     for j in range(1, Nx - 1):
         if j > 0 and j < Nx - 1:
             # group of points bala
-            GoP1 = [XYright[i],XYleft[i]]
+            GoP1 = [XYright[i], XYleft[i]]
             GoP2 = [XYup[j], XYdown[j]]
             point_of_intersection = intersectionFinder(GoP1, GoP2)
             points.append(point_of_intersection)
@@ -69,7 +71,6 @@ for i in range(0, Ny - 1):
     for j in range(0, Nx - 1):
         firstNum = i * Nx + j
         squareNums.append([firstNum, firstNum + 1, firstNum + Nx + 1, firstNum + Nx])
-
 
 # print('number of points',len(squareNums))
 # print(squareNums[0])
@@ -146,16 +147,15 @@ for square in squaresQordinations:
 
     XYips.append(ips)
 
- #   upwind_coef_4x4, ds_up = square_upwinder(square, ips, UV_in_ip_eleman)
-    # Upwind_Coefs = yek araye  elemnum*4*4
-  #  C_upwinds.append(upwind_coef_4x4)
-   # Ds_ups.append(ds_up)
+#   upwind_coef_4x4, ds_up = square_upwinder(square, ips, UV_in_ip_eleman)
+# Upwind_Coefs = yek araye  elemnum*4*4
+#  C_upwinds.append(upwind_coef_4x4)
+# Ds_ups.append(ds_up)
 
-    # X_ip_all.append(X_ip)
-    # Y_ip_all.append(Y_ip)
+# X_ip_all.append(X_ip)
+# Y_ip_all.append(Y_ip)
 
-    # XY_ip.append(X_ip,Y_ip)
-
+# XY_ip.append(X_ip,Y_ip)
 
 
 # UV_elemans= np.reshape(6*6)
@@ -165,7 +165,7 @@ ys = [x[1] for x in points]
 xd = [x[0] for x in markazha]
 yd = [x[1] for x in markazha]
 
-#plt.plot(XYleft,XYup,XYdown,XYright,XYhorizontalCenter,XYverticalCenter)
-#plt.scatter(xd, yd, color='red')
-#plt.scatter(xs, ys, color='green')
-#plt.show()
+# plt.plot(XYleft,XYup,XYdown,XYright,XYhorizontalCenter,XYverticalCenter)
+# plt.scatter(xd, yd, color='red')
+# plt.scatter(xs, ys, color='green')
+# plt.show()

@@ -161,17 +161,18 @@ def UVHAT(dsx, dsy, dndx, dndy, p_elem, u_elem, v_elem, uip, vip, Ds_ups, L_diff
     u_hat = np.zeros(4)
     v_hat = np.zeros(4)
     for i in range(0, 4):
-        u_hat[i] = uip[i] - (1 / (ro * math.sqrt(uip[i] ** 2 + vip[i] ** 2) / Ds_ups[i] + mio / (L_diffusions[i]**2))) * (
-                    -ro * (uip[i] * dvdy[i] - vip[i] * dudy[i]) + dpdx[i])
-        v_hat[i] = vip[i] - (1 / (ro * math.sqrt(uip[i] ** 2 + vip[i] ** 2) / Ds_ups[i] + mio / (L_diffusions[i]**2))) * (
-                    -ro * (vip[i] * dudx[i] - uip[i] * dvdx[i]) + dpdy[i])
-
+        u_hat[i] = uip[i] - (
+                    1 / (ro * math.sqrt(uip[i] ** 2 + vip[i] ** 2) / Ds_ups[i] + mio / (L_diffusions[i] ** 2))) * (
+                           -ro * (uip[i] * dvdy[i] - vip[i] * dudy[i]) + dpdx[i])
+        v_hat[i] = vip[i] - (
+                    1 / (ro * math.sqrt(uip[i] ** 2 + vip[i] ** 2) / Ds_ups[i] + mio / (L_diffusions[i] ** 2))) * (
+                           -ro * (vip[i] * dudx[i] - uip[i] * dvdx[i]) + dpdy[i])
 
     for i in range(0, 4):
         alpha[i] = ro * (math.sqrt(uip[i] ** 2 + vip[i] ** 2)) / Ds_ups[i] + gamma / (L_diffusions[i] ** 2)
         beta[i] = uip[i] * dvdy[i] - vip[i] * dudy[i]
         omega[i] = vip[i] * dudx[i] - uip[i] * dvdx[i]
-        mdot[i] = ro*u_hat[i]*dsx[i] + ro*v_hat[i]*dsy[i]
+        mdot[i] = ro * u_hat[i] * dsx[i] + ro * v_hat[i] * dsy[i]
 
     chcu = np.zeros((4, 4))
     chcv = np.zeros((4, 4))
@@ -192,10 +193,10 @@ def UVHAT(dsx, dsy, dndx, dndy, p_elem, u_elem, v_elem, uip, vip, Ds_ups, L_diff
         dhc[i] = -(ro * dsx[j] * beta[j] / alpha[j] + ro * dsy[j] * omega[j] / alpha[j] + ro * (-dsx[k]) * beta[k] /
                    alpha[k] + ro * (-dsy[k]) * omega[k] / alpha[k])
 
-    return chcu, chcv, chp, dhc,mdot
+    return chcu, chcv, chp, dhc, mdot
 
 
-def UV_COEF(mdot,dsx_el, dsy_el, dndx, dndy, vols, gamma, ro, uip, vip, cUpwinds, dsUP, Ldiff):
+def UV_COEF(mdot, dsx_el, dsy_el, dndx, dndy, vols, gamma, ro, uip, vip, cUpwinds, dsUP, Ldiff):
     cc = np.zeros((4, 4))
     cpu = np.zeros((4, 4))
     cpv = np.zeros((4, 4))
@@ -215,8 +216,10 @@ def UV_COEF(mdot,dsx_el, dsy_el, dndx, dndy, vols, gamma, ro, uip, vip, cUpwinds
             cc[i][m] = mdotj * (
                     peclet_j / (Rj + peclet_j) * cUpwinds[j][m] + Rj / (Rj + peclet_j) * N[j][m]) + mdotk * (
                                peclet_k / (Rk + peclet_k) * cUpwinds[k][m] + Rk / (Rk + peclet_k) * N[k][m])
-            cpu[i][m] = mdotj * (dsUP[j] ** 2/gamma) / (Rj + peclet_j) * (-dndx[j][m]) + mdotk * (dsUP[k] ** 2/gamma) / (
-                    Rk + peclet_k) * (-dndx[k][m])
-            cpv[i][m] = mdotj * (dsUP[j] ** 2/gamma) / (Rj + peclet_j) * (-dndy[j][m]) + mdotk * (dsUP[k] ** 2/gamma) / (
-                    Rk + peclet_k) * (-dndy[k][m])
+            cpu[i][m] = mdotj * (dsUP[j] ** 2 / gamma) / (Rj + peclet_j) * (-dndx[j][m]) + mdotk * (
+                        dsUP[k] ** 2 / gamma) / (
+                                Rk + peclet_k) * (-dndx[k][m])
+            cpv[i][m] = mdotj * (dsUP[j] ** 2 / gamma) / (Rj + peclet_j) * (-dndy[j][m]) + mdotk * (
+                        dsUP[k] ** 2 / gamma) / (
+                                Rk + peclet_k) * (-dndy[k][m])
     return cc, cpu, cpv

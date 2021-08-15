@@ -10,7 +10,7 @@ import numpy as np
 from Grid_and_ds_generator import *
 
 
-def distance(p1, p2,p3):
+def distance(p1, p2, p3):
     return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
 
@@ -61,8 +61,8 @@ def uvpgiver(il):
         U_elem[i] = Ulinearing[il[i]]
         V_elem[i] = Vlinearing[il[i]]
 
-    Uip_elem = np.zeros(4)+0.01
-    Vip_elem = np.zeros(4)+0.01
+    Uip_elem = np.zeros(4) + 0.01
+    Vip_elem = np.zeros(4) + 0.01
     for i in range(0, 4):
         for m in range(0, 4):
             Uip_elem[i] = Uip_elem[i] + N[i][m] * U_elem[m]
@@ -90,10 +90,10 @@ def contourPlloting():
     fig = plt.figure(figsize=(10, 10))
     left, bottom, width, height = 0.1, 0.1, .8, 0.8
     ax = fig.add_axes([left, bottom, width, height])
-    MUV=np.zeros((Nx,Ny))
-    for i in range(0,Nx):
-        for j in range (0,Nx):
-            MUV[i][j]=math.sqrt(U**2+V**2)
+    MUV = np.zeros((Nx, Ny))
+    for i in range(0, Nx):
+        for j in range(0, Nx):
+            MUV[i][j] = math.sqrt(U ** 2 + V ** 2)
     cp = plt.contourf(Xs, Ys, MUV)
     plt.colorbar(cp)
 
@@ -109,10 +109,10 @@ def colorLinePlotitng():
     fig = plt.figure(figsize=(6, 5))
     left, bottom, width, height = 0.1, 0.1, 0.8, 0.8
     ax = fig.add_axes([left, bottom, width, height])
-    MUV=np.zeros((Nx,Ny))
-    for i in range(0,Nx):
-        for j in range (0,Nx):
-            MUV[i][j]=math.sqrt(U**2+V**2)
+    MUV = np.zeros((Nx, Ny))
+    for i in range(0, Nx):
+        for j in range(0, Nx):
+            MUV[i][j] = math.sqrt(U ** 2 + V ** 2)
     cp = ax.contour(Xs, Ys, MUV)
     ax.clabel(cp, inline=True,
               fontsize=10)
@@ -120,7 +120,6 @@ def colorLinePlotitng():
     ax.set_xlabel('x (cm)')
     ax.set_ylabel('y (cm)')
     plt.show()
-
 
 
 def vector_field():
